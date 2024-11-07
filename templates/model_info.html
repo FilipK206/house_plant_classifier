@@ -1,0 +1,163 @@
+{% extends "base.html" %} 
+{% block title %} Model Info Classifier! {% endblock %} 
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 d-none d-md-block" style="width: 25%">
+      <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end" style="position: fixed; left: 3%; top: 10%">
+        <nav class="nav nav-pills flex-column">
+          <a class="nav-link" href="#item-1">General Information</a>
+          <a class="nav-link" href="#item-2">Data Preparation</a>
+          <a class="nav-link" href="#item-3">Model Architecture</a>
+          <a class="nav-link" href="#item-4">Training Process</a>
+          <a class="nav-link" href="#item-5">Performance Evaluation</a>
+          <a class="nav-link" href="#item-6">Conclusion</a>
+        </nav>
+      </nav>
+    </div>
+
+    <div class="col-md-8 offset-md-4 mt-5 pt-5 mb-5">
+      <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
+        <div id="item-1">
+          <h1 class="mb-3">House Plant Species Classification</h1>
+          <p>Welcome to our House Plant Species Classification project. This page provides an in-depth look at the model we developed to classify 47 different species of house plants using image data. Below, you'll find details on the data preparation, model architecture, training process, and performance evaluation.</p>
+          <hr class="my-5">
+          <h4>Overview</h4>
+          <p>The goal of this project is to accurately classify images of house plants into their respective species. By leveraging transfer learning with a pre-trained VGG16 model and fine-tuning additional layers, we aim to achieve high accuracy in multi-class classification.</p>
+          <hr class="my-5">
+        </div>
+        
+        <div id="item-2">
+          <h4>Data Preparation</h4>
+          <h5 class="my-3">Dataset</h5>
+          <p>
+            <ul>
+              <li>Source: The dataset contains images of 47 different house plant species.</li>
+              <li>Structure: Images are organized into folders named after each species.</li>
+            </ul>
+          </p>
+          <p>To enhance the model's generalization and prevent overfitting, we applied data augmentation techniques:</p>
+          <p>
+            <ul>
+              <li>Rescaling: Pixel values are scaled to the [0, 1] range.</li>
+              <li>Rotation: Images are randomly rotated by up to 20 degrees.</li>
+              <li>Shifting: Images are shifted horizontally and vertically by up to 20%.</li>
+              <li>Zooming: Images are zoomed in or out by up to 20%.</li>
+              <li>Flipping: Images are randomly flipped horizontally.</li>
+            </ul>
+          </p>
+          <h5 class="my-3">Data Splitting</h5>
+          <p>
+            <ul>
+              <li>Training Set: 80% of the data is used for training.</li>
+              <li>Validation Set: 20% of the data is reserved for validation.</li>
+            </ul>
+          </p>
+          <hr class="my-5">
+        </div>
+
+        <div id="item-3">
+          <h4>Model Architecture</h4>
+          <h5 class="my-3">Base Model: VGG16</h5>
+          <p>
+            <ul>
+              <li>Pre-trained Weights: We use the VGG16 model pre-trained on the ImageNet dataset.</li>
+              <li>Include Top Layers: Set to False to exclude the fully connected layers at the top.</li>
+              <li>Trainable Layers: All layers are frozen except for the last four, which are fine-tuned during training.</li>
+            </ul>
+          </p>
+          <h5 class="my-3">Custom Layers</h5>
+            <p>We add custom layers on top of the base model to adapt it to our classification task:</p>
+            <ul>
+              <li><strong>Flatten Layer</strong>: Converts the output of the base model to a 1D array.</li>
+              <li class="mb-1"><strong>Dense Layers</strong>:
+                <ul>
+                  <li>512 units with ReLU activation.</li>
+                  <li>256 units with ReLU activation.</li>
+                  <li>128 units with ReLU activation.</li>
+                </ul>
+              </li>
+              <li><strong>Batch Normalization</strong>: Applied after each dense layer to stabilize and accelerate training.</li>
+              <li><strong>Dropout Layers</strong>: Dropout rate of 0.5 to prevent overfitting.</li>
+              <li><strong>Output Layer</strong>: A dense layer with 47 units (number of classes) and softmax activation for multi-class classification.</li>
+            </ul>
+            <h5 class="my-3">Model Summary</h5>
+            <p>The model consists of approximately 17 million parameters, with about 3 million trainable parameters due to the unfreezing of the last four layers of the VGG16 base model and the addition of custom layers.</p>
+            <hr class="my-5">
+          </div>
+
+        <div id="item-4">
+          <h4>Training Process</h4>
+
+          <h5 class="my-3">Compilation</h5>
+          <ul>
+            <li><strong>Optimizer</strong>: Adam optimizer with a learning rate of 1e-4 for stable convergence.</li>
+            <li><strong>Loss Function</strong>: Categorical cross-entropy suitable for multi-class classification.</li>
+            <li><strong>Metrics</strong>: Accuracy is used to evaluate model performance during training.</li>
+          </ul>
+
+          <h5 class="my-3">Class Weights</h5>
+          <p>To handle class imbalance, we compute class weights inversely proportional to class frequencies, ensuring that minority classes contribute equally to the loss.</p>
+
+          <h5 class="my-3">Callbacks</h5>
+          <ul>
+            <li class="mb-1"><strong>Early Stopping</strong>:
+              <ul>
+                <li><strong>Monitor</strong>: Validation loss.</li>
+                <li><strong>Patience</strong>: Stops training if no improvement is seen for 7 epochs.</li>
+                <li><strong>Restore Best Weights</strong>: Ensures the model retains the weights with the lowest validation loss.</li>
+              </ul>
+            </li>
+            <li><strong>Model Checkpoint</strong>:
+              <ul>
+                <li><strong>Save Best Only</strong>: Saves the model only when validation loss improves.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h5 class="my-3">Training Parameters</h5>
+          <ul>
+            <li><strong>Epochs</strong>: The model is trained for up to 40 epochs.</li>
+            <li><strong>Batch Size</strong>: 32 images per batch.</li>
+          </ul>
+          <hr class="my-5">
+        </div>
+
+        <div id="item-5">
+          <h4>Performance Evaluation</h4>
+
+          <h5 class="my-3">Training and Validation Metrics</h5>
+          <p>We monitored the model's performance throughout the training process:</p>
+          <ul>
+            <li><strong>Loss Curves</strong>: Both training and validation loss decreased over epochs, indicating learning.</li>
+            <li><strong>Accuracy Curves</strong>: Training and validation accuracy increased, showing improved performance.</li>
+          </ul>
+
+          <h5 class="my-3">Sample Predictions</h5>
+          <p>We evaluated the model's predictions on sample images from the validation set:</p>
+          <ul>
+            <li><strong>Visualization</strong>: Displayed 9 sample images with their actual and predicted labels.</li>
+            <li><strong>Results</strong>: The model correctly classified most of the samples, demonstrating its effectiveness.</li>
+          </ul>
+
+          <h5 class="my-3">Classification Report</h5>
+          <p>We generated a detailed classification report on the validation set:</p>
+          <ul>
+            <li><strong>Precision</strong>: Measures the accuracy of positive predictions.</li>
+            <li><strong>Recall</strong>: Measures the ability to find all positive instances.</li>
+            <li><strong>F1-Score</strong>: Harmonic mean of precision and recall.</li>
+            <li><strong>Support</strong>: Number of occurrences of each class.</li>
+          </ul>
+          <hr class="my-5">
+        </div>
+
+        <div id="item-6">
+          <h4 class="mb-3">Conclusion</h4>
+          <p>Our House Plant Species Classification model demonstrates strong performance in identifying 47 different species. By utilizing transfer learning with VGG16 and applying data augmentation and class weighting, we addressed challenges like limited data and class imbalance. The model can be integrated into applications for plant enthusiasts, botanists, or agricultural support systems.</p>
+          <hr class="my-5">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

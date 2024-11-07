@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block title %} Recognize your Plants {% endblock %}
+{% block body %}
+<div class="container" style="margin-top: 12%; margin-bottom: 14%">
+  <div class="row">
+    <!-- Form Column -->
+    <div class="col-md-6 mb-4 align-self-center">
+      <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <h3 class="mb-3">Input your plant picture</h3>
+        {{ form.file(class="form-control mb-3", type="file", id="formFile") }}
+        <p>Allowed file extensions: .jpg, .jpeg, .png</p>
+        {{ form.submit(class="btn btn-primary", type="submit") }}
+      </form>
+    </div>
+    <!-- Plant Species Column -->
+    <div class="col-md-6 mb-4 text-center">
+      <h3>Plant Species:</h3>
+      <ul
+        class="list-group list-group-numbered overflow-auto"
+        style="max-height: 50vh"
+      >
+        {% for class_name in class_names %}
+        <li class="list-group-item bg-transparent" style="color: white">
+          {{ class_name }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

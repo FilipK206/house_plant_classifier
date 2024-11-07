@@ -1,0 +1,17 @@
+body {
+  color: white;
+  background-color: rgba(27, 27, 44, 0.95);
+}
+
+.box-home {
+  background-image: url("background.jpg");
+  width: 100%;
+  height: 85vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.scrollable {
+  overflow-y: scroll;
+}/*# sourceMappingURL=styles.css.map */

@@ -1,0 +1,91 @@
+{% extends "base.html" %} {% block title %} Welcome to House Plant Classifier!
+{% endblock %} {% block body %}
+<div class="box-home mb-3">
+  <div
+    class="container text-center position-absolute top-50 start-50 translate-middle"
+    style="width: 70vw"
+  >
+    <h1>Plant Species Classifier</h1>
+    <p style="padding: 15px 0">
+      Welcome to the Plant Species Classifier, a powerful AI tool designed to
+      identify various house plant species from images. This model uses advanced
+      deep learning techniques, leveraging transfer learning from the VGG16
+      architecture to achieve high accuracy in classifying different plant
+      types.
+    </p>
+    <a
+      type="button"
+      href="{{ url_for('classification_page') }}"
+      class="btn btn-primary"
+      >Recognize Plant</a
+    >
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <div
+        class="p-5 rounded-3 shadow"
+        style="background-color: rgb(27, 27, 44)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          fill="currentColor"
+          class="bi bi-lightning-fill mb-4"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M5.52.359A.5.5 0 0 1 6 0h4a.5.5 0 0 1 .474.658L8.694 6H12.5a.5.5 0 0 1 .395.807l-7 9a.5.5 0 0 1-.873-.454L6.823 9.5H3.5a.5.5 0 0 1-.48-.641z"
+          />
+        </svg>
+        <h2>Instant Plant Identification</h2>
+        <p>
+          <strong>Upload a photo,</strong> and let our AI-powered model
+          instantly identify your plant species with high accuracy - know your
+          plant's identity in seconds and start caring for it the right way!
+          Perfect for enthusiasts and experts alike!
+        </p>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div
+        class="p-5 rounded-3 shadow"
+        style="background-color: rgb(27, 27, 44)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          fill="currentColor"
+          class="bi bi-book mb-4"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"
+          />
+        </svg>
+        <h2>47 Plant Species</h2>
+        <p>
+          <strong>Discover a Wide Variety:</strong> Our classifier accurately
+          identifies 47 unique house plant species. From popular indoor
+          favorites to rare varieties, explore a broad spectrum of plants with
+          just a photo.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="p-5 m-3 shadow rounded" style="background-color: rgba(27, 27, 44)">
+  <h2>Discover the World of Plants with AI</h2>
+  <p>
+    Our Plant Species Classifier leverages cutting-edge AI to bring plant
+    knowledge to your fingertips. Simply upload an image to identify your plant,
+    explore detailed care instructions, and learn fascinating facts about each
+    species. Whether you’re a novice or a plant expert, this tool is designed to
+    enhance your green journey with precision and ease.
+  </p>
+</div>
+{% endblock %}

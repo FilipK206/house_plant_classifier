@@ -1,0 +1,9 @@
+__pycache__
+__pycache__/app.cpython-312.pyc
+__pycache__/config.cpython-312.pyc
+.vscode
+.vscode/settings.json
+venv
+.env
+model/best_model.keras
+model

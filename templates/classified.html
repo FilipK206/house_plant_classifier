@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %} Recognize your Plants {% endblock %}
+<!-- Set the page title -->
+
+{% block body %}
+<div class="text-center" style="margin-top: 15%">
+  <img
+    src="data:image/png;base64,{{ img_data }}"
+    alt="Uploaded Image"
+    class="img-fluid"
+    style="width: 448px; height: 448px; margin-bottom: 10px"
+  />
+
+  <p class="mb-3">{{ prediction_text }}</p>
+
+  <a
+    type="button"
+    href="{{ url_for('classification_page') }}"
+    class="btn btn-primary"
+    style="margin-bottom: 17%"
+    >Go Back</a
+  >
+</div>
+{% endblock %}
